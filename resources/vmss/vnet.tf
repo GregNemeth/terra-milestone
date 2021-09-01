@@ -5,8 +5,9 @@ resource "azurerm_virtual_network" "scale_set" {
     address_space = ["10.0.0.0/16"]
 }
 
-resource "azurerm_subnet" "scale_set" {
+resource "azurerm_subnet" "internal" {
     name = "${var.environment}-subnet"
+    virtual_network_name = azurerm_virtual_network.scale_set.name
     resource_group_name = azurerm_resource_group.scale_set.name
-    location = var.location
-    address_prefix = ["10.0.0.0./24"]
+    address_prefixes = ["10.0.0.0/24"]
+}
